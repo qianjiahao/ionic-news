@@ -1,0 +1,31 @@
+<ion-view view-title="cover">
+  <ion-content ng-app>
+      <div class="list padding">
+          <div class="item item-icon-left">
+              <i class="icon ion-location"></i>
+              <h2>大连东软信息学院</h2>
+          </div>
+          <div class="item item-image">
+              <img src="img/dongruan.png">
+          </div>
+          <div class="item item-divider">
+              <h3 class="text-right"> 梅花 & 钟楼 </h3>
+          </div>
+
+        <div ng-controller="CoverCtrl" class="list padding-top">
+            <div class="item item-borderless">
+                <h2>今日头条</h2>
+            </div>
+            <div class="item item-icon-left">
+                <i class="icon ion-earth"></i>
+                <a href="#" class=""><h2>{{top.title}}</h2></a>
+                <i>{{top.time}}</i>
+                <p class="text-right">
+                    阅读全文
+                </p>
+            </div>
+
+        </div>
+      </div>
+  </ion-content>
+</ion-view>
