@@ -4,7 +4,8 @@
 var express = require('express'),
 	superagent = require('superagent'),
 	cheerio = require('cheerio'),
-	app = new express();
+	app = new express(),
+	resource = [];
 
 
 app.all('*', function (req, res, next) {
@@ -63,32 +64,38 @@ app.get('/newslist', function (req, res) {
 });
 
 app.get('/news', function (req, res) {
-	console.log('3')
+	console.log('news')
 	var url = req.query.url;
-	console.log(url);
-	console.log(url.toString());
-	console.log(typeof url);
 
-	superagent.get(url)
-		.end(function (err, data) {
-			if (err) console.log(err);
+	for(var i = 0;i<resource.length;i++){
+		console.log(resource[i].title);
+	}
+	if(!resource[url]) {
+		superagent.get(url)
+			.end(function (err, data) {
+				if (err) console.log(err);
 
-			var news = [];
-			var $ = cheerio.load(data.text);
+				console.log('no err');
 
-			$('.article-content').each(function () {
+				var $ = cheerio.load(data.text);
+				var $element = $('.article-content');
 
-				news.push({
-					title: $(this).find('h2').text(),
-					date: $(this).find('.entry-date').text(),
-					author: $(this).find('.author').text(),
-					editor: $(this).find('.editor').text(),
-					data: $(this).find('.data').text()
-				});
+				var article = {
+					title: $element.find('h2').text(),
+					date: $element.find('.entry-date').text(),
+					author: $element.find('.author').text(),
+					editor: $element.find('.editor').text(),
+					data: $element.find('.data').text().split('\n')
+				};
+
+				resource[url] = article;
+					//console.log(typeof article.data);
+				res.json(article);
 			});
-			console.log(news.title);
-			res.json(news);
-		});
+
+	}else{
+		res.json(resource[url]);
+	}
 });
 
 app.listen(3000, 'localhost', function () {

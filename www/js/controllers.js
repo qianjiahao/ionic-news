@@ -58,14 +58,9 @@ angular.module('starter.controllers', [])
 
 	.controller('SingleNewsCtrl', function ($scope,$stateParams,$http) {
 
-		$http.get('http://localhost:3000/news?url=' + $stateParams.path)
+		$http.get('http://localhost:3000/news?url=' + $stateParams.url)
 			.success(function(data){
-				$scope.title = data.title;
-				$scope.date = data.date;
-				$scope.author = data.author;
-				$scope.editor = data.editor;
-				$scope.data = data.data;
-				console.log('news:'+data.title);
+				$scope.article = data;
 			})
 			.error(function(err){
 				console.log(err);

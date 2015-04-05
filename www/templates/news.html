@@ -1,6 +1,24 @@
 <ion-view view-title="news">
-  <ion-content>
-    <h2>{{title}}</h2>
-      {{href}}
+  <ion-content ng-controller="SingleNewsCtrl">
+      <div class="list padding">
+          <div class="">
+              <h4>
+                  {{article.title}}
+              </h4>
+              <p ng-if="article.date != ''">
+                  {{article.date}}
+              </p>
+              <p ng-if="article.author != ''">
+                  {{article.author}}
+              </p>
+              <p ng-if="article.editor != ''">
+                  {{article.editor}}
+              </p>
+              <hr>
+          </div>
+          <div ng-repeat=" item in (article.data) track by $index">
+              <p>&emsp;&emsp;{{item}}</p>
+          </div>
+      </div>
   </ion-content>
 </ion-view>

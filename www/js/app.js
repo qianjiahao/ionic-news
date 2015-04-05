@@ -67,7 +67,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 			})
 
 			.state('app.news', {
-				url: "/news",
+				url: "/newslist/news?url",
 				views: {
 					'menuContent': {
 						templateUrl: "templates/news.html",
