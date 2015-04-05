@@ -26,10 +26,10 @@ app.get('/topline', function (req, res) {
 
 			var top = {};
 			var $ = cheerio.load(data.text);
-
-			top.href = $('#news .topline').find('a').attr('href');
-			top.title = $('#news .topline').find('a').attr('title');
-			top.date = $('#news .topline').find('i').text();
+			var $element = $('#news .topline');
+			top.href =encodeURIComponent($element.find('a').attr('href'));
+			top.title = $element.find('a').attr('title');
+			top.date = $element.find('i').text();
 
 			//console.log(top.href + '-' + top.title + '-' + top.date);
 			res.json(top);
@@ -50,12 +50,13 @@ app.get('/newslist', function (req, res) {
 			$('#news li').each(function (index) {
 				var $a = $(this).find('a');
 				var $i = $(this).find('i');
-
-				news.push({
-					href: encodeURIComponent($a.attr('href')),
-					title: $a.attr('title'),
-					date: $i.text()
-				});
+				if($a.attr('href').match('neusoft')){
+					news.push({
+						href: encodeURIComponent($a.attr('href')),
+						title: $a.attr('title'),
+						date: $i.text()
+					});
+				}
 				//console.log(news[index].href);
 			});
 
@@ -67,9 +68,6 @@ app.get('/news', function (req, res) {
 	console.log('news')
 	var url = req.query.url;
 
-	for(var i = 0;i<resource.length;i++){
-		console.log(resource[i].title);
-	}
 	if(!resource[url]) {
 		superagent.get(url)
 			.end(function (err, data) {
