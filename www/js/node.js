@@ -27,7 +27,7 @@ app.get('/topline', function (req, res) {
 			var top = {};
 			var $ = cheerio.load(data.text);
 			var $element = $('#news .topline');
-			top.href =encodeURIComponent($element.find('a').attr('href'));
+			top.href = encodeURIComponent($element.find('a').attr('href'));
 			top.title = $element.find('a').attr('title');
 			top.date = $element.find('i').text();
 
@@ -50,7 +50,7 @@ app.get('/newslist', function (req, res) {
 			$('#news li').each(function (index) {
 				var $a = $(this).find('a');
 				var $i = $(this).find('i');
-				if($a.attr('href').match('neusoft')){
+				if ($a.attr('href').match('neusoft')) {
 					news.push({
 						href: encodeURIComponent($a.attr('href')),
 						title: $a.attr('title'),
@@ -65,10 +65,10 @@ app.get('/newslist', function (req, res) {
 });
 
 app.get('/news', function (req, res) {
-	console.log('news')
+	//console.log('news')
 	var url = req.query.url;
 
-	if(!resource[url]) {
+	if (resource[url] == undefined) {
 		superagent.get(url)
 			.end(function (err, data) {
 				if (err) console.log(err);
@@ -87,11 +87,13 @@ app.get('/news', function (req, res) {
 				};
 
 				resource[url] = article;
-					//console.log(typeof article.data);
+
+				console.log('new article');
 				res.json(article);
 			});
 
-	}else{
+	} else {
+		console.log('dup article');
 		res.json(resource[url]);
 	}
 });

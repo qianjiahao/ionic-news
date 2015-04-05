@@ -60,6 +60,7 @@ angular.module('starter.controllers', [])
 
 		$http.get('http://localhost:3000/news?url=' + $stateParams.url)
 			.success(function(data){
+				console.log(data.data);
 				$scope.article = data;
 			})
 			.error(function(err){
