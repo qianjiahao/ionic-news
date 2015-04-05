@@ -1,0 +1,18 @@
+<ion-view view-title="news">
+    <ion-content>
+        <ion-list>
+            <ion-item ng-repeat="item in news" class="item item-icon-left">
+                <a href="#/app/news?url={{item.href}}" >
+                    <i class="icon ion-forward"></i>
+                    <h3>{{item.title}}</h3>
+                    <p>
+                        {{item.date}}
+                    </p>
+                    <p class="text-right">
+                        阅读全文
+                    </p>
+                </a>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

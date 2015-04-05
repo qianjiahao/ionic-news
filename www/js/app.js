@@ -56,22 +56,22 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 					}
 				}
 			})
+			.state('app.newslist', {
+				url: "/newslist",
+				views: {
+					'menuContent': {
+						templateUrl: "templates/newslist.html",
+						controller: 'NewsListCtrl'
+					}
+				}
+			})
+
 			.state('app.news', {
 				url: "/news",
 				views: {
 					'menuContent': {
 						templateUrl: "templates/news.html",
-						controller: 'NewsCtrl'
-					}
-				}
-			})
-
-			.state('app.single', {
-				url: "/playlists/:playlistId",
-				views: {
-					'menuContent': {
-						templateUrl: "templates/playlist.html",
-						controller: 'PlaylistCtrl'
+						controller: 'SingleNewsCtrl'
 					}
 				}
 			});

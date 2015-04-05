@@ -43,12 +43,12 @@ angular.module('starter.controllers', [])
 				console.log(err);
 			})
 	})
-	.controller('NewsCtrl', function ($scope,$http) {
+	.controller('NewsListCtrl', function ($scope,$http) {
 
-		$http.get('http://localhost:3000/news')
+		$http.get('http://localhost:3000/newslist')
 			.success(function(data){
 				$scope.news = data;
-				console.log('news:'+data);
+				//console.log('news:'+data);
 			})
 			.error(function(err){
 				console.log(err);
@@ -56,5 +56,19 @@ angular.module('starter.controllers', [])
 
 	})
 
-	.controller('PlaylistCtrl', function ($scope, $stateParams) {
-	});
+	.controller('SingleNewsCtrl', function ($scope,$stateParams,$http) {
+
+		$http.get('http://localhost:3000/news?url=' + $stateParams.path)
+			.success(function(data){
+				$scope.title = data.title;
+				$scope.date = data.date;
+				$scope.author = data.author;
+				$scope.editor = data.editor;
+				$scope.data = data.data;
+				console.log('news:'+data.title);
+			})
+			.error(function(err){
+				console.log(err);
+			});
+	})
+;
